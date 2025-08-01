@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Phoenix - IIT Patna Robocon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    html.dark {
+      --tw-bg-opacity: 1;
+      background-color: rgb(15 15 15 / var(--tw-bg-opacity));
+      color: white;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .poppins {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Orbitron';
+      font-size: 2rem;
+      letter-spacing: 2px;
+    }
+
+    .highlight {
+      color: #f97316;
+      /* orange-500 */
+    }
+
+    <style>nav {
+      background: black;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      /* ✅ Pushes logo to left and menu to right */
+      align-items: center;
+    }
+
+    nav .logo {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    nav .logo img {
+      height: 35px;
+      width: 35px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: white;
+    }
+
+    nav ul li a.active::after,
+    nav ul li a:hover::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: orange;
+    }
+  </style>
+
+
+  </style>
+</head>
+
+<body class="bg-black text-black transition-colors duration-300">
+
+
+  <!-- 🔄 Preloader -->
+  <div id="preloader" class="preloader">Launching Team Phoenix...</div>
+
+
+  <!-- 🔝 Navbar -->
+  <nav class="flex items-center justify-between bg-black text-white py-3 px-6">
+    <!-- Left Side: Logo and Text -->
+    <div class="flex items-center space-x-3 font-bold text-lg">
+      <img src="image1-removebg-preview.png" alt="Team Phoenix Logo" class="h-9 w-9 object-contain" />
+      <span>Team Phoenix<span class="text-orange-500">.</span></span>
+    </div>
+
+    <!-- Right Side: Navigation Links -->
+    <ul class="flex gap-6 font-semibold text-white">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="team.html" class="border-b-2 border-orange-500">Team</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="resource.html">Resources</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- 🏠 Hero Section with Image Slider Background -->
+  <section id="home" class="relative h-1/3 bg-black text-white px-6">
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+
+    <!-- Grid Layout -->
+    <div class="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-2 items-center">
+
+      <!-- 🖼️ Image Half -->
+      <div class="flex justify-center">
+        <img src="image1-removebg-preview.png" alt="Phoenix Logo" class="max-h-[80vh] object-contain" />
+      </div>
+
+      <!-- 📝 Text Half -->
+      <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-6">
+        <h1 class="text-5xl md:text-6xl orbitron font-bold text-orange-500">Team Phoenix</h1>
+        <p class="text-xl poppins text-gray-200 max-w-xl">
+          IIT Patna Robocon | Engineering | Innovation | Teamwork
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  </div>
+  </section>
+
+
+
+
+
+  <section id="team" class="py-16 px-6 bg-gray-100 dark:bg-gray-900" data-aos="fade-up">
+    <h2 class="text-3xl text-center orbitron mb-10 highlight">-Our Team-</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+
+
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member1.jpg" alt="Jaynaksha"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Jaynaksha Vyas</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Team Captain</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="Ayush"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Ayush</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/shivank.jpg" alt="Shivank"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Shivank Goyal</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/vidhan.jpg" alt="vidhan"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Vidhan Bansal</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/me.jpg" alt="Anand"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Anand </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Mechanical Lead</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/aditya.jpg" alt="Aditya"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Aditya</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">PID Expert</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/aryan.jpg" alt="Aryan"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Aryan</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">CAD</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="Divya"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Divya</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Software</p>
+      </div>
+
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="Kanishk"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Kanishk</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/satyam.jpg" alt="Satyam"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Satyam</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Register Level Programmer</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/ayush.jpg" alt="ayush"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Ayush Maurya</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="Manish"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Manish</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Technical Secretary</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="Liza"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Liza </h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">ROS</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/rudranshu.jpg" alt="Rudranshu"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Rudranshu</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">ROS</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="images/member2.jpg" alt="bignesh"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Bignesh</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Core Member</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center hover:scale-105 transition">
+        <img src="img/ananya.jpg" alt="Anany"
+          class="w-32 h-32 mx-auto rounded-full border-4 border-orange-500 mb-4 object-cover" />
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Anany</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">ROS</p>
+      </div>
+
+
+    </div>
+  </section>
+
+
+
+
+  <!-- 📬 Contact -->
+  <section id="contact" class="py-16 px-6" data-aos="fade-up">
+    <h2 class="text-3xl text-center orbitron mb-10 highlight">Contact Us</h2>
+    <div class="text-center">
+      <p>Email: robocon@iitp.ac.in</p>
+      <p>Instagram: @teamphoenix_iitp</p>
+    </div>
+  </section>
+
+  <!-- 🔚 Footer -->
+  <footer class="text-center py-4 bg-black text-white text-sm">
+    © 2025 Team Phoenix - IIT Patna Robocon
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    AOS.init();
+
+    window.onload = () => {
+      // ✅ Hide preloader when page loads
+      const preloader = document.getElementById("preloader");
+      preloader.style.display = "none";
+      // ✅ Hero image slider logic
+      const heroImages = document.querySelectorAll("#slider img");
+      let heroIndex = 0;
+
+      setInterval(() => {
+        heroImages[heroIndex].classList.remove("opacity-100");
+        heroImages[heroIndex].classList.add("opacity-0");
+
+        heroIndex = (heroIndex + 1) % heroImages.length;
+
+        heroImages[heroIndex].classList.remove("opacity-0");
+        heroImages[heroIndex].classList.add("opacity-100");
+      }, 4000); // change image every 4 seconds
+
+      // ✅ Testimonial slider logic
+      const slides = document.querySelectorAll('#testimonial-slider .slide');
+      let current = 0;
+      slides[current].classList.add('opacity-100');
+
+      setInterval(() => {
+        slides[current].classList.remove('opacity-100');
+        slides[current].classList.add('opacity-0');
+        current = (current + 1) % slides.length;
+        slides[current].classList.remove('opacity-0');
+        slides[current].classList.add('opacity-100');
+      }, 5000);
+    };
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle("dark");
+      localStorage.theme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+    }
+
+    if (localStorage.theme === 'dark') {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#f97316" },
+        "shape": {
+          "type": "circle",
+          "stroke": { "width": 0, "color": "#000" },
+          "polygon": { "nb_sides": 6 }
+        },
+        "opacity": { "value": 0.8, "random": false },
+        "size": { "value": 5, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#f97316",
+          "opacity": 0.6,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "bounce",
+          "bounce": true
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "repulse" },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 200,
+            "line_linked": { "opacity": 0.5 }
+          },
+          "repulse": {
+            "distance": 100,
+            "duration": 0.4
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+</body>
+
+</html>
