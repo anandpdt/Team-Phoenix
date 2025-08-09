@@ -199,18 +199,29 @@
         <!-- Contact Form -->
         <div class="contact-form" aria-labelledby="form-heading">
           <h3 id="form-heading" style="color:#ff6d1a; margin-bottom:10px;">Send Us a Message</h3>
-          <!-- Google Form Embed -->
-<iframe 
-    src="https://docs.google.com/forms/d/e/1FAIpQLSd4b71q_Gd4U_T7Mz-9DmvZ0kx4YRpaqcRcbI-hJMbRFtFkBQ/viewform?embedded=true" 
-    width="100%" 
-    height="901" 
-    frameborder="0" 
-    marginheight="0" 
-    marginwidth="0"
-    style="border-radius: 12px; background-color: #151515;">
-    Loading…
-</iframe>
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" autocomplete="off">
+            <input type="hidden" name="form-name" value="contact">
+            <p hidden><label>Don’t fill this if you’re human: <input name="bot-field"></label></p>
 
+            <label class="sr-only">Name</label>
+            <input type="text" name="name" placeholder="Your Name" required>
+
+            <label class="sr-only">Email</label>
+            <input type="email" name="email" placeholder="Your Email" required>
+
+            <label class="sr-only">Subject</label>
+            <select name="subject" aria-label="Subject">
+              <option>Join Us</option>
+              <option>Collaboration</option>
+              <option>Media Inquiry</option>
+              <option>Other</option>
+            </select>
+
+            <label class="sr-only">Message</label>
+            <textarea name="message" placeholder="Your Message..." required rows="6"></textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
         </div>
       </div><!-- /.columns -->
 
