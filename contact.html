@@ -1,205 +1,332 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact - Team Phoenix</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us | Team Phoenix</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind (for utility classes) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Particles -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Lottie -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
   <style>
-    html.dark { background: #0f0f0f; color: white; }
-    .orbitron { font-family: 'Orbitron', sans-serif; }
-    .poppins { font-family: 'Poppins', sans-serif; }
-    .highlight { color: #f97316; }
-    .preloader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: white;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Orbitron';
-      font-size: 2rem;
-    }
+    /* Page basics */
+    body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(120deg,#000 0%,#0b0e17 50%,#000 100%);
+    color: white;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .iit-center-text, nav a, #hero-subheading, .contact-header-box p {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  p, a, input, select, textarea, button {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+    /* Navbar */
     nav {
       background: black;
       padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
-    nav .logo {
-      display: flex;
-      align-items: center;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
+    nav .logo { display:flex; align-items:center; font-weight:700; color:#fff; }
+    nav .logo img { height:35px; width:35px; object-fit:contain; margin-right:8px; }
+    nav .iit-center-text { flex:1; text-align:center; font-family:'Poppins'; font-weight:700; }
+    nav ul { display:flex; gap:22px; list-style:none; margin:0; padding:0; }
+    nav a { color:#fff; text-decoration:none; font-weight:600; position:relative; }
+    nav a:hover::after, nav a.active::after { content:""; position:absolute; left:0; bottom:-6px; height:2px; width:100%; background:orange; }
+
+    /* Hero */
+    .black-orange-corners {
+      background:
+        radial-gradient(circle at top left, rgba(255,120,0,0.2), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,94,0,0.18), transparent 30%),
+        #000;
+      position:absolute; inset:0; z-index:-1; background-repeat:no-repeat; background-size:cover;
     }
-    nav .logo img {
-      height: 35px;
-      width: 35px;
-      object-fit: contain;
-      margin-right: 10px;
+    #home { position:relative; height:80vh; display:grid; align-items:center; padding-top:64px; overflow:hidden; }
+
+    /* Contact section */
+    .contact-section { position:relative; padding:60px 20px 100px; z-index:1; background:transparent; }
+    .container { max-width:1100px; margin:0 auto; position:relative; }
+
+    /* decorative gradient bg */
+    .gradient-bg {
+      position:absolute; inset:0; width:100%; height:100%; left:-25%; top:-25%;
+      background: radial-gradient(circle at center,#ff4500 0%, #0a0a0a 70%);
+      opacity:0.12; transform:rotate(25deg); z-index:0;
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      margin: 0;
-      padding: 0;
+
+    /* Header boxes (stacked) */
+    .contact-header-box {
+      background:#111; border-radius:12px; padding:22px; box-shadow:0 6px 20px rgba(0,0,0,0.6);
     }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      position: relative;
+
+    /* Columns - use grid so both columns stay on same row on wide screens */
+    .columns {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:32px;
+      margin-top:14px;
     }
-    nav ul li a:hover,
-    nav ul li a.active {
-      color: white;
+
+    /* Ensure columns don't force wrapping */
+    .contact-info, .contact-form {
+      background:#0f0f0f; padding:26px; border-radius:12px;
+      min-height:260px; /* can adjust if you want */
     }
-    nav ul li a.active::after,
-    nav ul li a:hover::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: orange;
+
+    .contact-info h3 { color:#ff6d1a; margin:0 0 10px; font-size:1.1rem; }
+    .contact-info p, .contact-info a { color:#ddd; line-height:1.5; }
+    .contact-info a { color:#ff6d1a; text-decoration:none; }
+
+    /* Form fields */
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width:100%; padding:12px 14px; margin-bottom:14px; background:#151515; border:1px solid #222; color:#fff; border-radius:8px;
+      font-size:1rem;
+    }
+    .contact-form button {
+      width:100%; padding:12px 14px; background:#ff6d1a; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer;
+    }
+
+    /* Lottie and map */
+    .lottie-icons { display:flex; gap:12px; margin-top:10px; }
+    .map { width:100%; height:180px; border:2px solid #222; border-radius:8px; margin-top:12px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .columns { grid-template-columns: 1fr; }
+      #home { height:70vh; }
+      .contact-header-box { padding:18px; }
     }
   </style>
-  <style>
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('image1-removebg-preview.png') center center no-repeat;
-    background-size: 40%;
-    opacity: 0.05;
-    z-index: -1;
-    pointer-events: none;
-  }
-</style>
-
 </head>
-<body class="bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
+<body>
 
-  <div id="preloader" class="preloader">Loading...</div>
-
-  <!-- 🔝 Navbar -->
-  <nav>
-    <div class="logo">
-      <img src="image1-removebg-preview.png" alt="Team Phoenix Logo">
-      Team Phoenix<span style="color:orange;">.</span>
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black">
+    <div style="display:flex; align-items:center; gap:8px; padding-right:12px;">
+      <div class="logo">
+        <img src="image1-removebg-preview.png" alt="logo">
+        <span style="color:#fff; font-weight:800;">Team Phoenix<span style="color:orange">.</span></span>
+      </div>
     </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="team.html">Team</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="resource.html">Resources</a></li>
-      <li><a href="contact.html" class="active">Contact</a></li>
+    <div class="iit-center-text">IIT Patna</div>
+    <ul style="margin-right:16px;">
+      <li style="display:inline;"><a href="1.html" >Home</a></li>
+      <li style="display:inline;"><a href="team.html">Team</a></li>
+      <li style="display:inline;"><a href="gallery.html">Gallery</a></li>
+      <li style="display:inline;"><a href="resource.html">Resources</a></li>
+      <li style="display:inline;"><a href="contact.html"class="active">Contact</a></li>
     </ul>
   </nav>
+ <!-- HERO -->
+<section id="home" style="position:relative; height:50vh; display:flex; align-items:center; justify-content:center; padding-top:64px; overflow:hidden;">
+  <div class="black-orange-corners"></div>
+  <div id="particles-js" class="absolute inset-0 z-0"></div>
 
-  <!-- 🏠 Hero Section -->
-  <section id="hero" class="relative h-[300px] bg-black text-white px-6">
-    <div id="particles-js" class="absolute inset-0 z-0"></div>
-    <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
-    <div class="relative z-10 flex flex-col justify-center items-center h-full text-center">
-      <h1 class="text-5xl orbitron font-bold text-orange-500">Contact Us</h1>
-      <p class="text-xl poppins text-gray-200 mt-2">We'd love to hear from you</p>
-    </div>
-  </section>
-
-  <!-- 📍 Contact Details Section -->
-  <section class="py-16 px-6 bg-gray-100 dark:bg-gray-900">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl orbitron mb-4 highlight">Get in Touch</h2>
-      <p class="poppins mb-6">You can reach us via email or visit our lab directly at IIT Patna.</p>
-      <p>Email: teamphoenix@iitp.ac.in</p>
-    
-      <p>Instagram: @teamphoenix_iitp</p>
-    </div>
-  </section>
-
-  <!-- 🌐 Social Media Handles -->
-  <section class="py-12 px-6 bg-white dark:bg-gray-800">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl orbitron mb-6 highlight">Connect With Us</h2>
-      <div class="flex justify-center space-x-6">
-        <a href="https://www.facebook.com/teamphoenixiitp" target="_blank" class="text-blue-600 hover:text-blue-800 text-2xl"><i class="fab fa-facebook"></i> Facebook</a>
-        <a href="https://www.instagram.com/teamphoenix.iitp" target="_blank" class="text-pink-500 hover:text-pink-700 text-2xl"><i class="fab fa-instagram"></i> Instagram</a>
-        <a href="#" target="_blank" class="text-blue-400 hover:text-blue-600 text-2xl"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="#" target="_blank" class="text-gray-800 hover:text-black text-2xl"><i class="fab fa-github"></i> GitHub</a>
-      </div>
-    </div>
-  </section>
-<!-- 👤 Contact Our Captain -->
-<section class="py-12 px-6 bg-gray-100 dark:bg-gray-900" data-aos="fade-up">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-3xl orbitron mb-10 text-center highlight">Contact Our Captain</h2>
-    <div class="md:flex items-center gap-10 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:scale-105 transition-transform duration-500">
-      
-      <!-- 📸 Captain Photo -->
-      <div class="flex-shrink-0">
-        <img src="img/Jayinaksha Vyas.jpg" alt="Captain" class="w-48 h-48 rounded-full object-cover shadow-md border-4 border-orange-500 mx-auto md:mx-0">
-      </div>
-
-      <!-- 📝 Captain Info -->
-      <div class="text-center md:text-left mt-6 md:mt-0 space-y-3">
-        <h3 class="text-2xl font-bold orbitron text-orange-500">Jaynaksha Vyas</h3>
-        <p class="text-lg poppins">Email: <a href="mailto:captain@iitp.ac.in" class="text-orange-500 hover:underline"></a></p>
-        <p class="text-lg poppins">Phone: <a href="tel:+919999999999" class="text-orange-500 hover:underline">+91 6267 997 638</a></p>
-        <p class="text-lg poppins text-gray-600 dark:text-gray-300">Captain, Team Phoenix - IIT Patna</p>
-      </div>
-    </div>
+  <div style="z-index:2; width:100%; max-width:900px; text-align:center; padding:0 20px;">
+    <h1 class="orbitron" style="font-size:4rem; color:#ff8a3d; margin-bottom:12px;">
+      Contact Us
+    </h1>
+    <p id="hero-subheading" class="poppins" style="font-size:1.2rem; color:#c7c7c7; max-width:650px; margin:0 auto;">
+      We’d love to hear from you — drop us a message and we’ll get back as soon as possible.
+    </p>
   </div>
 </section>
 
-  <!-- 🗺️ Google Maps Embed -->
-  <section class="px-6 pb-16">
-    <div class="max-w-6xl mx-auto">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3421.9098386906803!2d84.850329!3d25.537156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDMyJzEzLjgiTiA4NMKwNTEnMDEuMiJF!5e1!3m2!1sen!2sin!4v1754081578974!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-    </div>
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section" style="position:relative; overflow:visible;">
+    <div class="gradient-bg"></div>
+
+    <div class="container">
+
+
+      <!-- Reach Us + Form (grid; both visible side-by-side on wide screens) -->
+      <div class="columns" role="region" aria-label="Contact information and form">
+        <!-- Reach Us -->
+        <div class="contact-info" aria-labelledby="reach-heading">
+          <h3 id="reach-heading">Reach Us At</h3>
+          <p><strong>Address:</strong><br>IIT Patna, Bihta Campus, Bihar 801106</p>
+          <p><strong>Email:</strong><br><a href="mailto:contact@teamphoenixiitp.in">teamphoenix.iitp.ac.in</a></p>
+      
+<div class="flex justify-center md:justify-start mt-4 space-x-5 text-xl">
+    <a href="https://instagram.com/teamphoenix.iitp" target="_blank" title="Instagram" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/instagram-new.png" alt="Instagram" />
+    </a>
+    <a href="https://linkedin.com/company/teamphoenixiitp" target="_blank" title="LinkedIn" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/linkedin.png" alt="LinkedIn" />
+    </a>
+    <a href="mailto:teamphoenix@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
+    </a>
+  </div>
+          <div class="lottie-icons" aria-hidden="true">
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_iwmd6pyr.json" style="width:56px;height:56px;" background="transparent" speed="1" loop autoplay></lottie-player>
+            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_dgjK9s.json" style="width:56px;height:56px;" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+
+          <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3421.9098386906803!2d84.850329!3d25.537156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDMyJzEzLjgiTiA4NMKwNTEnMDEuMiJF!5e1!3m2!1sen!2sin!4v1754081578974!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade." title="Team Phoenix map" loading="lazy"></iframe>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form" aria-labelledby="form-heading">
+          <h3 id="form-heading" style="color:#ff6d1a; margin-bottom:10px;">Send Us a Message</h3>
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" autocomplete="off">
+            <input type="hidden" name="form-name" value="contact">
+            <p hidden><label>Don’t fill this if you’re human: <input name="bot-field"></label></p>
+
+            <label class="sr-only">Name</label>
+            <input type="text" name="name" placeholder="Your Name" required>
+
+            <label class="sr-only">Email</label>
+            <input type="email" name="email" placeholder="Your Email" required>
+
+            <label class="sr-only">Subject</label>
+            <select name="subject" aria-label="Subject">
+              <option>Join Us</option>
+              <option>Collaboration</option>
+              <option>Media Inquiry</option>
+              <option>Other</option>
+            </select>
+
+            <label class="sr-only">Message</label>
+            <textarea name="message" placeholder="Your Message..." required rows="6"></textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </div><!-- /.columns -->
+
+    </div><!-- /.container -->
   </section>
 
-  <!-- 🔚 Footer -->
-  <footer class="text-center py-4 bg-black text-white text-sm">
-    © 2025 Team Phoenix - IIT Patna Robocon
-  </footer>
+  <!-- Footer (optional) could go here -->
 
   <!-- Scripts -->
   <script>
-    window.onload = () => document.getElementById("preloader").style.display = "none";
+    // Init AOS for header boxes (we intentionally left form / info without AOS so they show immediately)
+    AOS.init({ duration: 500, once: true });
 
+    // Particles init
     particlesJS("particles-js", {
       "particles": {
-        "number": { "value": 100, "density": { "enable": true, "value_area": 800 }},
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
         "color": { "value": "#f97316" },
         "shape": { "type": "circle" },
-        "opacity": { "value": 0.8 },
+        "opacity": { "value": 1 },
         "size": { "value": 5, "random": true },
-        "line_linked": { "enable": true, "distance": 150, "color": "#f97316", "opacity": 0.6, "width": 1 },
-        "move": { "enable": true, "speed": 2, "out_mode": "bounce", "bounce": true }
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#f97316",
+          "opacity": 0.6,
+          "width": 1
+        },
+        "move": { "enable": true, "speed": 2 }
       },
       "interactivity": {
-        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "repulse" }, "resize": true },
-        "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.5 }}, "repulse": { "distance": 100, "duration": 0.4 } }
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "repulse" },
+          "resize": true
+        }
       },
       "retina_detect": true
     });
   </script>
-  <!-- Font Awesome Icons -->
+   <!-- 🌟 FOOTER -->
+<footer class="bg-black text-white px-6 pt-10 pb-6 relative border-t border-orange-500 shadow-inner z-50">
+  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-center md:text-left">
+
+    <!-- 👑 Logo + About -->
+    <div>
+      <div class="flex items-center justify-center md:justify-start mb-2">
+        <img src="image1-removebg-preview.png" alt="Phoenix Logo" class="h-10 w-10 mr-2">
+        <span class="orbitron text-lg font-bold">Team Phoenix<span class="text-orange-500">.</span></span>
+      </div>
+      <p class="text-sm text-gray-400">Official Robotics Team of IIT Patna.</p>
+    </div>
+
+    <!-- 📂 Quick Links -->
+    <div>
+      <h3 class="text-orange-500 font-semibold text-lg mb-2">Quick Links</h3>
+      <ul class="space-y-1 text-sm text-gray-300">
+        <li><a href="index.html" class="hover:text-orange-400">🏠 Home</a></li>
+        <li><a href="team.html" class="hover:text-orange-400">👥 Team</a></li>
+        <li><a href="gallery.html" class="hover:text-orange-400">📸 Gallery</a></li>
+        <li><a href="resource.html" class="hover:text-orange-400">📂 Resources</a></li>
+        <li><a href="contact.html" class="hover:text-orange-400">📞 Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- 📬 Contact & Social -->
+   <!-- 📬 Contact & Social (Updated with Logos & Links) -->
+<div>
+  <h3 class="text-orange-500 font-semibold text-lg mb-2">Contact</h3>
+  
+  <div class="space-y-2 text-sm text-gray-300">
+    <p class="flex items-center justify-center md:justify-start gap-2">
+      <i class="fas fa-envelope text-yellow-400 text-lg"></i>
+     
+    </p>
+    
+    <p class="flex items-center justify-center md:justify-start gap-2">
+      <i class="fas fa-map-marker-alt text-green-400 text-lg"></i>
+      <span>IIT Patna, India</span>
+    </p>
+  </div>
+
+  <div class="flex justify-center md:justify-start mt-4 space-x-5 text-xl">
+    <a href="https://instagram.com/teamphoenix.iitp" target="_blank" title="Instagram" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/instagram-new.png" alt="Instagram" />
+    </a>
+    <a href="https://linkedin.com/company/teamphoenixiitp" target="_blank" title="LinkedIn" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/linkedin.png" alt="LinkedIn" />
+    </a>
+    <a href="mailto:teamphoenix@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
+    </a>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- 🔚 Bottom Note -->
+  <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-4">
+    &copy; 2025 Team Phoenix – IIT Patna. Built with ⚙️, 🔥, and ☕ by passionate engineers.
+  </div>
+ 
+
+  <!-- FontAwesome CDN -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</footer>
 </body>
 </html>
