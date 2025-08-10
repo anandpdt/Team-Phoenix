@@ -5,7 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Team Phoenix - IIT Patna Robocon</title>
-    <link rel="icon" type="image/png" href="img/11111.png">
+  <link rel="icon" type="image/png" href="img/11111.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet" />
   <script>
@@ -20,18 +21,16 @@
 
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <style>
-    #mobileMenu {
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-    }
+   
 
-    #mobileMenu.show {
-      max-height: 500px;
-      /* enough height to display menu */
-      opacity: 1;
-    }
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 
     html.dark {
@@ -91,12 +90,15 @@
   background: #f97316;
   border-radius: 8px;
 }
-    nav {
+  nav {
   background: black;
   padding: 10px 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
+
 
 nav .logo {
   flex: 0 0 auto;
@@ -182,13 +184,18 @@ nav ul {
 }
 
 
-  /* 🌈 Keyframe for global gradient animation */
+  /* 🌈 Keyframe for global gradient animation
   @keyframes global-gradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-
+/*@media (max-width: 1024px) {
+  .iit-center-text {
+    display: none !important;
+  }
+}
+ */
   body {
     background: linear-gradient(120deg, #000 0%, #0b0e17 50%, #000 100%);
     background-size: 300% 300%;
@@ -326,6 +333,25 @@ nav ul {
           mask-composite: exclude;
   pointer-events: none;
 }
+@media (max-width: 768px) {
+  .testimonial-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Number of lines before truncation */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .testimonial-text.expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+  .see-more-btn {
+    color: orange;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+  }
+}
 
 @keyframes neonMove {
   0% { background-position: 0% 50%; }
@@ -389,6 +415,41 @@ nav ul {
   0% { transform: translateY(120vh) rotate(0deg); }
   100% { transform: translateY(-20vh) rotate(360deg); }
 }
+#mobileMenu.show {
+  transform: translateX(0);
+}
+#burger span {
+  transition: transform 0.3s, opacity 0.3s;
+}
+#burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+#burger.active span:nth-child(2) {
+  opacity: 0;
+}
+#burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+@media (max-width: 768px) {
+  nav {
+    flex-wrap: wrap; /* allow items to go to new line */
+  }
+  nav ul {
+    display: none; /* hide normal menu on mobile */
+  }
+  .iit-center-text {
+    order: 3; /* move below burger+logo */
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+  }
+  #burger {
+    display: flex !important;
+  }
+}
+
 
 </style>
 </head>
@@ -401,24 +462,40 @@ nav ul {
   <div id="preloader" class="preloader">Launching Team Phoenix.....</div>
 
   <!-- 🔝 Navbar -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-black">
-  <div class="logo">
-    <img src="image1-removebg-preview.png" alt="Team Phoenix Logo">
-    Team Phoenix<span style="color:orange;">.</span>
+<nav class="fixed top-0 left-0 w-full z-50 bg-black flex items-center justify-between px-4 py-3">
+  <!-- Logo -->
+  <div class="flex items-center">
+    <img src="image1-removebg-preview.png" alt="Team Phoenix Logo" class="h-8 w-8 mr-2">
+    <span class="text-white font-bold text-lg">Team Phoenix<span style="color:orange;">.</span></span>
   </div>
 
-  <!-- 👇 Add this span for IIT Patna -->
-  <div class="iit-center-text">IIT Patna</div>
-
-  <ul>
+  <!-- Desktop Menu -->
+  <ul class="hidden md:flex gap-6">
     <li><a href="1.html" class="active">Home</a></li>
     <li><a href="team.html">Team</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="resource.html">Resources</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+
+  <!-- Burger Icon -->
+  <button id="burger" class="md:hidden flex flex-col gap-1">
+    <span class="block w-6 h-0.5 bg-white"></span>
+    <span class="block w-6 h-0.5 bg-white"></span>
+    <span class="block w-6 h-0.5 bg-white"></span>
+  </button>
 </nav>
 
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed top-0 right-0 w-64 h-full bg-black text-white transform translate-x-full transition-transform duration-300 z-40">
+  <ul class="flex flex-col p-6 space-y-4">
+    <li><a href="1.html" class="active">Home</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="resource.html">Resources</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
 
   <!-- 🏠 Hero Section with Image Slider Background -->
 
@@ -435,7 +512,7 @@ nav ul {
  <div class="relative z-10 max-w-7xl mx-auto h-full grid md:grid-cols-2 items-center px-6">
   <!-- 🔥 Image appears first -->
   <div class="flex justify-center">
-    <img src="img/11111.png" alt="Phoenix Logo" class="max-h-[80vh] object-contain opacity-0 transition-opacity duration-1000" id="hero-img" />
+    <img src="image1-removebg-preview.png" alt="Phoenix Logo" class="max-h-[80vh] object-contain opacity-0 transition-opacity duration-1000" id="hero-img" />
   </div>
 
   <!-- 📝 Text appears with delay -->
@@ -528,7 +605,7 @@ nav ul {
       </div>
       <!-- Box 11 -->
 <div class="what-card opacity-0">
-        <img src="img/ros.jpg" alt="ROS" class="w-full h-40 object-cover rounded-md mb-4" />
+        <img src="image/ros.jpg" alt="ROS" class="w-full h-40 object-cover rounded-md mb-4" />
         <h4 class="font-bold text-lg">Robot Operating System (ROS)</h4>
         <p class="text-sm text-gray-700 dark:text-gray-300">We architect and refine ROS-based control systems to allow
           modular, scalable robotic development.</p>
@@ -721,9 +798,14 @@ nav ul {
             <div>
               <h3 class="text-xl font-bold">Jaynaksha Vyas</h3>
               <p class="text-sm italic mb-2">Captain 2024-2025 , Vice-Captain 2023-2024 </p>
-              <p class="text-gray-700 dark:text-gray-300">Team Phoenix is a thrilling platform for innovation and hands-on learning, building technical skills and inspiring out-of-the-box thinking to create impactful solutions.
+             <p class="text-gray-700 dark:text-gray-300">
+  <span class="testimonial-text">
+    Team Phoenix is a thrilling platform for innovation and hands-on learning, building technical skills and inspiring out-of-the-box thinking to create impactful solutions.
+    More than a team, it’s a collective of passionate individuals who face challenges, adapt, and make the best of every resource. One day, Team Phoenix will be the epicenter of innovation and technology the world will admire.
+  </span>
+  <span class="see-more-btn">See more</span>
+</p>
 
-More than a team, it’s a collective of passionate individuals who face challenges, adapt, and make the best of every resource. One day, Team Phoenix will be the epicenter of innovation and technology the world will admire.</p>
             </div>
           </div>
         </div>
@@ -735,10 +817,13 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Shivank Goyal</h3>
               <p class="text-sm italic mb-2">Team Member 2024-2025</p>
-              <p class="text-gray-700 dark:text-gray-300">Being part of the robotics team has been one of the best
+              <p class="text-gray-700 dark:text-gray-300">
+                <span class="testimonial-text">Being part of the robotics team has been one of the best
                 experiences of my college life. From late night builds to the thrill of Robocon and IROC, it’s been a
                 journey filled with learning, teamwork, and some serious fun. Grateful to have shared it with my amazing
-                juniors. You guys made it even better. These memories and skills will stick with me for life.</p>
+                juniors. You guys made it even better. These memories and skills will stick with me for life.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -752,10 +837,12 @@ More than a team, it’s a collective of passionate individuals who face challen
               <h3 class="text-xl font-bold">Archit Anand</h3>
               <p class="text-sm italic mb-2">Alumni and Team Captain 2021-2022</p>
               <p class="text-gray-700 dark:text-gray-300">
+                <span class="testimonial-text">
                 Traversing the peaks and valleys of this glorious journey, we went through it all together. From its
                 dormancy during challenging times to its emergence fully rejuvenated, our team kept the lore of the
-                phoenix alive!
-              </p>
+                phoenix alive!</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -768,8 +855,10 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Akshat Jain</h3>
               <p class="text-sm italic mb-2">Alumni and Team Captain 2020-2021</p>
-              <p class="text-gray-700 dark:text-gray-300"> We can draw a lot of motivation and inspiration from our team
-                because just like the Pheonix, they have come out more stronger and ambitious than before.</p>
+              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">We can draw a lot of motivation and inspiration from our team
+                because just like the Pheonix, they have come out more stronger and ambitious than before.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -782,13 +871,15 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Pratham Chaudhary</h3>
               <p class="text-sm italic mb-2">Team Captain 2022-2023</p>
-              <p class="text-gray-700 dark:text-gray-300"> Being part of Team Phoenix has truly been the most amazing
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text"> Being part of Team Phoenix has truly been the most amazing
                 memories of my college journey so far. It has been an incredible experience where I had the privilege of
                 learning and collaborating with passionate individuals who share the same 'hunger' to tinker.
                 Witnessing the team uphold the legacy and elevate it to new heights is truly gratifying.
 
                 This journey taught me a precious lesson:
-                "Failure is never truly an option if the yardstick of your success is the knowledge you gain."</p>
+                "Failure is never truly an option if the yardstick of your success is the knowledge you gain."</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -800,7 +891,9 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Piyush Tewari</h3>
               <p class="text-sm italic mb-2">Vice-Captain 2023-2024</p>
-              <p class="text-gray-700 dark:text-gray-300">Success is an easy path if interest is your driver.</p>
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">Success is an easy path if interest is your driver.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -812,11 +905,13 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Devansh Choudhary</h3>
               <p class="text-sm italic mb-2">Alumni and Vice-Captain 2021-2022</p>
-              <p class="text-gray-700 dark:text-gray-300"> Being a part of Robocon club has been an exhilarating
+              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">Being a part of Robocon club has been an exhilarating
                 adventure, filled with unforgettable moments of collaboration, learning, and growth. From building
                 robots to competing on grand stages, we've embraced challenges and celebrated victories together. This
                 club is more than just a team; it's a family united by the love for robotics. I'm proud to call myself a
-                Phoenix, soaring higher with every endeavor.</p>
+                Phoenix, soaring higher with every endeavor.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -828,10 +923,12 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Panav Arpit Raaj</h3>
               <p class="text-sm italic mb-2">Team Captain 2023-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"> This team thrives on competition, distinct from clubs driven
+              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">This team thrives on competition, distinct from clubs driven
                 by interest or hobbies. ABU Robocon boasts fierce competition where deadlines could equate to
                 elimination. Striving for excellence is essential, as we must surpass the efforts of numerous competing
-                teams across Asia. </p>
+                teams across Asia.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -843,9 +940,11 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Rohit Gupta</h3>
               <p class="text-sm italic mb-2">Alumni and Team Captain 2017-2018</p>
-              <p class="text-gray-700 dark:text-gray-300">
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">
                 CTO and Co-Founder of RangeAero, an aviation-logistics based startup operating from Bangalore.
-              </p>
+              </span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -858,14 +957,16 @@ More than a team, it’s a collective of passionate individuals who face challen
               <h3 class="text-xl font-bold">Dhawal Gupta</h3>
               <p class="text-sm italic mb-2">Technical Secretary, Gymkhana; Founding member and Vice-Captain Robocon;
                 Founder and Co-ordinator Tinkering Lab; IITP CSE 2015-2019</p>
-              <p class="text-gray-700 dark:text-gray-300">The initial absence of a Robocon team at IIT Patna began as a
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">The initial absence of a Robocon team at IIT Patna began as a
                 source of frustration but quickly turned into an unexpected opportunity to start something truly
                 special. Participating in Robocon was not just about fulfilling my passion for working on robotics and
                 tackling intriguing problems; it was the first time I had the chance to collaborate closely with friends
                 across all five departments. This endeavor was incredibly fulfilling, fostering lasting friendships,
                 innovative ideas, and meaningful collaboration. I am proud and delighted to have seen the team expand
                 from 18 to over 50 students. I wish them the best of luck for the future. This experience is one I
-                cherish deeply, as it contributed significantly to my personal and professional growth.</p>
+                cherish deeply, as it contributed significantly to my personal and professional growth.</span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -877,9 +978,11 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Nikhil Singh</h3>
               <p class="text-sm italic mb-2">Team Member 2022-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"> The competition not only challenged my technical skills but
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text"> The competition not only challenged my technical skills but
                 also fostered teamwork, creativity, and problem-solving. Building and programming a robot from scratch
-                was both rewarding and educational. </p>
+                was both rewarding and educational. </span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -891,10 +994,12 @@ More than a team, it’s a collective of passionate individuals who face challen
             <div>
               <h3 class="text-xl font-bold">Rishav Mitra</h3>
               <p class="text-sm italic mb-2">Team Member 2022-2024</p>
-              <p class="text-gray-700 dark:text-gray-300">Joining Team Phoenix, the RoboCon team of IIT Patna, offers
+              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">Joining Team Phoenix, the RoboCon team of IIT Patna, offers
                 endless opportunities and serves as a perfect platform for showcasing existing skills and developing new
                 ones. Personally, I credit more than half of my current Techstack to my time with Robocon - IIT Patna!
-                Undoubtedly, it's the most vibrant association of brilliant minds on our campus. </p>
+                Undoubtedly, it's the most vibrant association of brilliant minds on our campus. </span>
+                <span class="see-more-btn">See more</span>
+</p>
             </div>
           </div>
         </div>
@@ -1308,31 +1413,44 @@ More than a team, it’s a collective of passionate individuals who face challen
 
   // Observe the entire About section (or just the image)
   observer.observe(document.getElementById('about-image'));
+
+const whatCards = document.querySelectorAll('.what-card');
+const whatSection = document.getElementById('what-we-do');
+
+// Function to reveal the cards
+function revealWhatCards() {
+  whatCards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.remove('opacity-0');
+    }, index * 200); // stagger delay
+  });
+}
+
+// IntersectionObserver setup
+const whatObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      revealWhatCards();
+      observer.unobserve(entry.target); // only run once
+    }
+  });
+}, { threshold: 0 }); // trigger as soon as section appears
+
+// Start observing
+whatObserver.observe(whatSection);
+
+// ✅ Fallback: If already in viewport on load (mobile fast load issue)
+window.addEventListener('load', () => {
+  const rect = whatSection.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    revealWhatCards();
+  }
+});
+
+
+
+
 </script>
-<script>
-  const whatCards = document.querySelectorAll('.what-card');
-
-  const whatObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Reveal cards in groups of 3
-        whatCards.forEach((card, index) => {
-          setTimeout(() => {
-            card.classList.remove('opacity-0');
-          }, index * 200); // stagger delay
-        });
-
-        observer.unobserve(entry.target); // only run once
-      }
-    });
-  }, { threshold: 0.2 });
-
-  whatObserver.observe(document.getElementById('what-we-do'));
-</script>
-
-
-
-
 
 
 
@@ -1478,7 +1596,31 @@ initSlider('contest-track', 'contest-dots', 'contest-prev', 'contest-next');
 
 
 
+<script>
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
 
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    mobileMenu.classList.toggle('show');
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('#mobileMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      burger.classList.remove('active');
+      mobileMenu.classList.remove('show');
+    });
+  });
+
+document.querySelectorAll('.see-more-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const text = btn.previousElementSibling;
+    text.classList.toggle('expanded');
+    btn.textContent = text.classList.contains('expanded') ? 'See less' : 'See more';
+  });
+});
+</script>
 
 </body>
 
