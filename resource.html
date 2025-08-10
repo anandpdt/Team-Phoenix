@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Resources & Guides
 </title>
-  <link rel="icon" type="image/png" href="img/11111.png">
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -22,6 +22,15 @@
   <!-- Lottie -->
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
+      html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
     /* Page basics */
     body {
     margin: 0;
@@ -97,23 +106,38 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black">
-    <div style="display:flex; align-items:center; gap:8px; padding-right:12px;">
-      <div class="logo">
-        <img src="image1-removebg-preview.png" alt="logo">
-        <span style="color:#fff; font-weight:800;">Team Phoenix<span style="color:orange">.</span></span>
-      </div>
-    </div>
-    <div class="iit-center-text">IIT Patna</div>
-    <ul style="margin-right:16px;">
-      <li style="display:inline;"><a href="index.html" >Home</a></li>
-      <li style="display:inline;"><a href="team.html">Team</a></li>
-      <li style="display:inline;"><a href="gallery.html">Gallery</a></li>
-      <li style="display:inline;"><a href="resource.html"class="active">Resources</a></li>
-      <li style="display:inline;"><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+ <!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-black flex items-center justify-between px-4 py-2">
+  <!-- Logo -->
+  <div class="flex items-center gap-2">
+    <img src="image1-removebg-preview.png" alt="logo" class="h-9 w-9 object-contain">
+    <span class="font-bold text-white">Team Phoenix<span class="text-orange-500">.</span></span>
+  </div>
+
+  <!-- IIT Patna text (hidden on small screens) -->
+  <div class="hidden md:block font-semibold text-white">IIT Patna</div>
+
+  <!-- Burger Icon -->
+  <button id="burger" class="flex flex-col justify-between w-6 h-5 md:hidden">
+    <span class="block w-full h-[3px] bg-white"></span>
+    <span class="block w-full h-[3px] bg-white"></span>
+    <span class="block w-full h-[3px] bg-white"></span>
+  </button>
+
+  <!-- Menu -->
+  <ul id="menu" class="fixed top-0 right-[-100%] h-full w-[80%] bg-black flex flex-col items-start pt-6 gap-6 pl-6 transition-all duration-300 z-50 md:static md:flex-row md:gap-6 md:w-auto md:h-auto md:pt-0 md:pl-0 md:right-0">
+    <!-- Close Button -->
+    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400">&times;</button>
+    <li><a href="index.html" class="text-white font-semibold hover:text-orange-400">Home</a></li>
+    <li><a href="team.html" class="text-white font-semibold hover:text-orange-400 ">Team</a></li>
+    <li><a href="gallery.html" class="text-white font-semibold hover:text-orange-400">Gallery</a></li>
+    <li><a href="resource.html" class="text-white font-semibold hover:text-orange-400 active">Resources</a></li>
+    <li><a href="contact.html" class="text-white font-semibold hover:text-orange-400">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Overlay -->
+<div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
  <!-- HERO -->
 <section id="home" style="position:relative; height:50vh; display:flex; align-items:center; justify-content:center; padding-top:64px; overflow:hidden;">
   <div class="black-orange-corners"></div>
@@ -346,6 +370,25 @@ particlesJS("particles-js", {
   "retina_detect": true
 });
 </script>
+<script>
+const burger = document.getElementById("burger");
+const menu = document.getElementById("menu");
+const overlay = document.getElementById("menu-overlay");
+const closeMenuBtn = document.getElementById("close-menu");
 
+function openMenu() {
+  menu.style.right = "0px";
+  overlay.classList.remove("hidden");
+}
+
+function closeMenu() {
+  menu.style.right = "-100%";
+  overlay.classList.add("hidden");
+}
+
+burger.addEventListener("click", openMenu);
+overlay.addEventListener("click", closeMenu);
+closeMenuBtn.addEventListener("click", closeMenu);
+</script>
 </body>
 </html>
