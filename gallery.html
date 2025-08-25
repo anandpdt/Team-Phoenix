@@ -165,7 +165,7 @@ img {
   <!-- Menu -->
   <ul id="menu" class="fixed top-0 right-[-100%] h-full w-[80%] bg-black flex flex-col items-start pt-6 gap-6 pl-6 transition-all duration-300 z-50 md:static md:flex-row md:gap-6 md:w-auto md:h-auto md:pt-0 md:pl-0 md:right-0">
     <!-- Close Button -->
-    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400">&times;</button>
+    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400 md:hidden">&times;</button>
     <li><a href="index.html" class="text-white font-semibold hover:text-orange-400">Home</a></li>
     <li><a href="team.html" class="text-white font-semibold hover:text-orange-400 ">Team</a></li>
     <li><a href="gallery.html" class="text-white font-semibold hover:text-orange-400 active">Gallery</a></li>
@@ -192,43 +192,114 @@ img {
   </div>
 </section>
  <!-- GALLERY CONTENT -->
-  <section id="gallery" class="contact-section" style="position:relative; overflow:visible;">
-    <div class="gradient-bg"></div>
+ <!-- GALLERY CONTENT -->
+ <section id="gallery" class="contact-section relative overflow-visible">
+   <div class="w-3/4 mx-auto my-12 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
+  <div class="gradient-bg"></div>
+  <div class="relative z-10">
 
-    <div class="container">
-
-
-      <div>
-        <h2 class="text-3xl orbitron text-center mb-4 text-orange-500">Robocon 2025</h2>
-        <div class="overflow-x-auto gallery-track snap-x snap-mandatory flex gap-6 px-4 scroll-smooth">
-           <img src="gallery/101.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/102.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-          <img src="gallery/103.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/104.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-            <img src="gallery/105.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/106.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-            <img src="gallery/107.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/108.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-            <img src="gallery/109.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/110.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-            <img src="gallery/111.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/112.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-            <img src="gallery/113.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/114.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-          <!-- Add remaining Robocon images -->
-        </div>
-      </div>
-
-      <div>
-        <h2 class="text-3xl orbitron text-center mb-4 text-orange-500">IROC-U</h2>
-        <div class="overflow-x-auto gallery-track snap-x snap-mandatory flex gap-6 px-4 scroll-smooth">
-          <img src="gallery/i1.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:rotate-1 snap-center" />
-          <img src="gallery/i2.jpg" class="rounded-xl shadow-lg w-[300px] h-[200px] object-cover transform transition hover:scale-105 hover:-rotate-1 snap-center" />
-        </div>
-      </div>
-
+    <!-- Filter Buttons -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button class="filter-btn px-4 py-2 rounded-lg bg-orange-500 text-white font-semibold" data-category="all">All</button>
+      <button class="filter-btn px-4 py-2 rounded-lg bg-gray-700 hover:bg-orange-500" data-category="robocon2025">Robocon 2025</button>
+      <button class="filter-btn px-4 py-2 rounded-lg bg-gray-700 hover:bg-orange-500" data-category="robocon2024">Robocon 2024</button>
+      <button class="filter-btn px-4 py-2 rounded-lg bg-gray-700 hover:bg-orange-500" data-category="irocu">IROC-U</button>
     </div>
-  </section>
+
+    <!-- All Images (grid layout, default visible) -->
+    <div class="gallery-section grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" data-category="all">
+      <!-- Robocon 2025 -->
+      <img src="gallery/101.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/102.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/103.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/104.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/105.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/106.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/107.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/108.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/109.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/110.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/111.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/112.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/113.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <!-- add other 2025 images -->
+
+      <!-- Robocon 2024 -->
+      <img src="gallery/r2024-1.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/r2024-2.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+
+      <!-- IROCU -->
+      <img src="gallery/i1.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/i2.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+    </div>
+
+    <!-- Robocon 2025 -->
+    <div class="gallery-section hidden" data-category="robocon2025">
+      <h2 class="text-3xl orbitron text-center mb-4 text-orange-500">Robocon 2025</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+       <img src="gallery/101.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/102.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/103.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/104.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/105.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/106.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/107.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/108.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/109.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/110.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/111.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/112.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      <img src="gallery/113.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+        <!-- add other 2025 images -->
+      </div>
+    </div>
+
+    <!-- Robocon 2024 -->
+    <div class="gallery-section hidden" data-category="robocon2024">
+      <h2 class="text-3xl orbitron text-center mb-4 text-orange-500">Robocon 2024</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <img src="gallery/r2024-1.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+        <img src="gallery/r2024-2.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      </div>
+    </div>
+
+    <!-- IROCU -->
+    <div class="gallery-section hidden" data-category="irocu">
+      <h2 class="text-3xl orbitron text-center mb-4 text-orange-500">IROC-U</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <img src="gallery/i1.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+        <img src="gallery/i2.jpg" class="rounded-xl shadow-lg w-full h-[220px] object-cover transform transition hover:scale-105" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Gallery filter
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const gallerySections = document.querySelectorAll(".gallery-section");
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const category = btn.getAttribute("data-category");
+
+      // Update button styles
+      filterButtons.forEach(b => b.classList.remove("bg-orange-500", "text-white"));
+      btn.classList.add("bg-orange-500", "text-white");
+
+      // Show/Hide sections
+      gallerySections.forEach(section => {
+        if (section.getAttribute("data-category") === category) {
+          section.classList.remove("hidden");
+        } else {
+          section.classList.add("hidden");
+        }
+      });
+    });
+  });
+</script>
+
 </section>
 
 <!-- FOOTER -->
