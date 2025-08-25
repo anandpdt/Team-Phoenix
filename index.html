@@ -1776,14 +1776,43 @@ initSlider('contest-track', 'contest-dots', 'contest-prev', 'contest-next');
   // Dot clicks
   testimonialDots.forEach((dot, i) => dot.addEventListener('click', () => scrollToTestimonial(i)));
 
-  // Auto-slide
-  setInterval(() => {
-    const rect = testimonialTrack.getBoundingClientRect();
-    const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-    if (isVisible) {
-      scrollToTestimonial(testimonialIndex + 1);
-    }
-  }, 6000);
+  // Auto-slide (desktop only, not on phones)
+let testimonialTimer = null;
+
+function startAutoplay() {
+  // run only if viewport is wider than 768px
+  if (window.innerWidth > 768) {
+    testimonialTimer = setInterval(() => {
+      const rect = testimonialTrack.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (isVisible) {
+        scrollToTestimonial(testimonialIndex + 1);
+      }
+    }, 9000);
+  }
+}
+
+function stopAutoplay() {
+  if (testimonialTimer) {
+    clearInterval(testimonialTimer);
+    testimonialTimer = null;
+  }
+}
+
+// Start autoplay on load if desktop
+startAutoplay();
+
+// Stop/start autoplay on resize (in case user rotates phone / resizes window)
+window.addEventListener('resize', () => {
+  stopAutoplay();
+  startAutoplay();
+});
+
+// Stop autoplay if user interacts
+['touchstart', 'pointerdown', 'mousedown', 'wheel', 'keydown'].forEach(evt => {
+  testimonialTrack.addEventListener(evt, stopAutoplay, { passive: true });
+});
+
 
   // Manual scroll detection for dots
   testimonialTrack.addEventListener('scroll', () => {
