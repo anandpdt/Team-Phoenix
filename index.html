@@ -333,6 +333,12 @@ nav ul {
           mask-composite: exclude;
   pointer-events: none;
 }
+
+/* Hide see-more by default (desktop) */
+.see-more-btn {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .testimonial-text {
     display: -webkit-box;
@@ -348,7 +354,7 @@ nav ul {
     color: orange;
     cursor: pointer;
     font-weight: bold;
-    display: inline-block;
+    display: inline-block; /* show only on phones */
     margin-top: 5px;
   }
 }
@@ -449,12 +455,223 @@ nav ul {
     display: flex !important;
   }
 }
+@media (max-width: 768px) {
+  #about-image {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
 
+.flip-card {
+  background: transparent;
+  width: 100%;
+  height: 280px;
+  perspective: 1200px; /* stronger 3D */
+  position: relative;
+  overflow: hidden;   /* ⬅️ keep shine inside */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* bounce feel */
+  transform-style: preserve-3d;
+  z-index: 1; /* ⬅️ keep card content above shine */
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg) scale(1.05); /* slight zoom */
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Safari fix */
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: border 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+/* ---------------- FLIP CARD BASE ---------------- */
+.flip-card {
+  background: transparent;
+  width: 100%;
+  height: 280px;
+  perspective: 1200px; /* stronger 3D */
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  
+  /* Hidden state before scroll */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+}
+
+/* Active animation when visible */
+.flip-card.animate {
+  animation: cardEntry 0.8s ease-out forwards;
+}
+
+/* Moving border effect */
+.flip-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* border thickness */
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff7300, #ffae00, #ff7300);
+  background-size: 300% 300%;
+  animation: borderMove 4s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card inner container */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-style: preserve-3d;
+  z-index: 2; /* above border */
+}
+
+/* Flip on hover */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg) scale(1.05);
+}
+
+/* FRONT & BACK ---------------- */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: border 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+  background: #111;
+}
+
+/* FRONT */
+.flip-card-front {
+  color: white;
+  z-index: 2;
+}
+
+/* BACK */
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #111, #1e1e1e);
+  color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Fix blurry text on back */
+.flip-card-back h4,
+.flip-card-back p {
+  transform: translateZ(60px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  -webkit-font-smoothing: antialiased;
+  z-index: 2;
+}
+
+/* Hover glow */
+.flip-card:hover .flip-card-front,
+.flip-card:hover .flip-card-back {
+  border: 2px solid #f97316;
+  box-shadow: 0 15px 35px rgba(249, 115, 22, 0.6);
+}
+
+/* ✨ Shine effect across card */
+.flip-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.8s;
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+.flip-card:hover::after {
+  transform: translateX(100%);
+}
+/* Flip on tap (mobile) */
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg) scale(1.05);
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@keyframes cardEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95) rotateX(10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.02) rotateX(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+@keyframes borderMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Add spacing for flip-cards on small screens */
+@media (max-width: 768px) {
+  #what-we-do .grid {
+    padding-left: 1rem;   /* left gap */
+    padding-right: 1rem;  /* right gap */
+  }
+
+  #what-we-do .flip-card {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 </style>
 </head>
 
-<body id="theme-root" class="bg-white text-black dark:bg-black dark:text-white transition-colors duration-300">
+<body id="theme-root" class="bg-black text-white transition-colors duration-300">
+
 
 
 
@@ -539,6 +756,7 @@ nav ul {
   <!-- 🧠 About Section -->
  
   <section id="about" class="contact-section" style="position:relative; overflow:visible;">
+       
     <div class="gradient-bg"></div>
 
     <div class="container">
@@ -579,10 +797,10 @@ nav ul {
           class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full z-10">❯</button>
       </div>
 
-      <div>
-       <h2 id="about-heading" class="text-3xl orbitron mb-4 opacity-0 transition-opacity duration-600">
-      <span class="highlight">About</span> Team Phoenix
-    </h2>
+     <div class="px-4 md:px-0">
+  <h2 id="about-heading" class="text-3xl orbitron mb-4 opacity-0 transition-opacity duration-600">
+    <span class="highlight">About</span> Team Phoenix
+  </h2>
        <p id="about-para" class="poppins opacity-0 transition-opacity duration-600">We are Team Phoenix, representing IIT Patna in different Robotics competition. Rising with
           passion, precision and perseverance, our team brings together engineers from diverse fields to build next-gen
           robots and compete at the national and international stage.</p>
@@ -590,114 +808,189 @@ nav ul {
     </div>
   </section>
   <!-- what we do section-->
- <section id="what-we-do" class="contact-section relative overflow-visible">
+<!-- What We Do Section -->
+<section id="what-we-do" class="contact-section relative overflow-visible py-16">
+     <div class="w-3/4 mx-auto my-12 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
   <div class="gradient-bg"></div>
   <div class="relative z-10">
     <h2 class="text-3xl text-center orbitron mb-10 highlight">-What We Do-</h2>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-      <!-- Box 1 -->
-    <div class="what-card opacity-0">
-        <img src="img/rover111.png" alt="ISRO Rover" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">ISRO Rover Challenge</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">The Robocon and allied clubs of IIT Patna are dedicated to
-          fostering knowledge‑sharing and skill development through events like the ISRO Rover Challenge, where
-          participants can witness captivating demonstrations of our cutting‑edge projects.</p>
-      </div>
-      <!-- Box 11 -->
-<div class="what-card opacity-0">
-        <img src="image/ros.jpg" alt="ROS" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Robot Operating System (ROS)</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We architect and refine ROS-based control systems to allow
-          modular, scalable robotic development.</p>
-      </div>
-      <!-- Box 7 --><div class="what-card opacity-0">
-        <img src="img/drone.jpg" alt="Drone" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">🛩 Aerial Robotics</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We design and test autonomous drones and UAVs, working on
-          flight dynamics, computer vision, and real‑time control systems to tackle complex aerial tasks.
-
-        </p>
-      </div>
-      <!-- Box 2 -->
-     <div class="what-card opacity-0">
-      
-        <img src="img/ws2.jpg" alt="Workshops" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Workshops</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">Robocon and the allied clubs, including Tinkering Lab,
-          promote skill-building through regular workshops and tech demonstrations.</p>
+      <!-- Card 1 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/rover111.png" alt="ISRO Rover" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">ISRO Rover Challenge</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">ISRO Rover Challenge</h4>
+            <p>The Robocon and allied clubs of IIT Patna are dedicated to fostering knowledge-sharing and skill development through events like the ISRO Rover Challenge, where participants can witness captivating demonstrations of our cutting-edge projects.</p>
+          </div>
+        </div>
       </div>
 
-     
-
-      <!-- Box 4 -->
-<div class="what-card opacity-0">
-        <img src="img/bot.jpg" alt="3D CAD" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Design and Simulate</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We create intricate 3D models and simulations to visualize
-          and iterate ideas with precision before building.</p>
+      <!-- Card 2 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="image/ros.jpg" alt="ROS" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Robot Operating System (ROS)</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Robot Operating System (ROS)</h4>
+            <p>We architect and refine ROS-based control systems to allow modular, scalable robotic development.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 5 -->
-<div class="what-card opacity-0">
-        <img src="img/app.jpg" alt="App Dev" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Remote Control Apps</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We develop mobile and web apps to remotely control and
-          monitor our robots and test instruments.</p>
+      <!-- Card 3 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/drone.jpg" alt="Drone" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Aerial Robotics</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Aerial Robotics</h4>
+            <p>We design and test autonomous drones and UAVs, working on flight dynamics, computer vision, and real-time control systems to tackle complex aerial tasks.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 6 -->
-<div class="what-card opacity-0">
-        <img src="img/wild.jpg" alt="Prototype" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Prototype Wild Mechanisms</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">Our engineering journey includes building crazy
-          mechanisms—many fail, but the learning never does.</p>
+      <!-- Card 4 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/ws2.jpg" alt="Workshops" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Workshops</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Workshops</h4>
+            <p>Robocon and the allied clubs, including Tinkering Lab, promote skill-building through regular workshops and tech demonstrations.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 7 -->
-<div class="what-card opacity-0">
-        <img src="img/ml.jpg" alt="ML OPS" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">ML OPS</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">Deploying experimental ML models for novel tasks in robotics
-          and controls.</p>
+      <!-- Card 5 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/bot.jpg" alt="3D CAD" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Design and Simulate</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Design and Simulate</h4>
+            <p>We create intricate 3D models and simulations to visualize and iterate ideas with precision before building.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 8 -->
-     <div class="what-card opacity-0">
-        <img src="img/pcb.jpg" alt="Circuit Design" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Circuit Design</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We design and refine our own PCBs each year with focus on
-          performance and upgradability.</p>
+      <!-- Card 6 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/app.jpg" alt="App Dev" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Remote Control Apps</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Remote Control Apps</h4>
+            <p>We develop mobile and web apps to remotely control and monitor our robots and test instruments.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 9 -->
-    <div class="what-card opacity-0">
-        <img src="img/f1.png" alt="CAD" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">CAD</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We use advanced CAD tools to create adaptable, efficient,
-          and upgradable robot designs.</p>
+      <!-- Card 7 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/wild.jpg" alt="Prototype" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Prototype Wild Mechanisms</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Prototype Wild Mechanisms</h4>
+            <p>Our engineering journey includes building crazy mechanisms—many fail, but the learning never does.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 10 -->
-     <div class="what-card opacity-0">
-        <img src="img/space.jpg" alt="Space Robotics" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Space Robotics</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">Working on novel space robotics solutions, testing motion,
-          communication, and terrain handling systems.</p>
+      <!-- Card 8 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/ml.jpg" alt="ML OPS" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">ML OPS</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">ML OPS</h4>
+            <p>Deploying experimental ML models for novel tasks in robotics and controls.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Box 11 -->
-    <div class="what-card opacity-0">
-        <img src="img/exhibition.jpg" alt="ROS" class="w-full h-40 object-cover rounded-md mb-4" />
-        <h4 class="font-bold text-lg">Robotics Exhibition</h4>
-        <p class="text-sm text-gray-700 dark:text-gray-300">We showcase ready-made robots, automation prototypes, and innovative creations, offering visitors an interactive experience with cutting-edge technology.</p>
+      <!-- Card 9 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/pcb.jpg" alt="Circuit Design" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Circuit Design</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Circuit Design</h4>
+            <p>We design and refine our own PCBs each year with focus on performance and upgradability.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 10 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/f1.png" alt="CAD" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">CAD</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">CAD</h4>
+            <p>We use advanced CAD tools to create adaptable, efficient, and upgradable robot designs.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 11 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/space.jpg" alt="Space Robotics" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Space Robotics</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Space Robotics</h4>
+            <p>Working on novel space robotics solutions, testing motion, communication, and terrain handling systems.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 12 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="img/exhibition.jpg" alt="Robotics Exhibition" class="w-full h-40 object-cover rounded-md mb-4" />
+            <h4 class="font-bold text-lg">Robotics Exhibition</h4>
+          </div>
+          <div class="flip-card-back">
+            <h4 class="font-bold text-lg mb-2 text-orange-400">Robotics Exhibition</h4>
+            <p>We showcase ready-made robots, automation prototypes, and innovative creations, offering visitors an interactive experience with cutting-edge technology.</p>
+          </div>
+        </div>
       </div>
 
     </div>
-    </div>
-  </section>
+  </div>
+</section>
+
 
  <section id="contests" class="contact-section relative overflow-visible">
+   <div class="w-3/4 mx-auto my-12 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
   <div class="gradient-bg"></div>
   <div class="relative z-10">
     <div class="max-w-6xl mx-auto text-center">
@@ -709,10 +1002,12 @@ nav ul {
           <div class="flex-none w-full px-4 snap-center">
             <h3 class="text-lg md:text-xl uppercase text-red-600 font-extrabold tracking-wide mb-3">WHAT IS ABU-ROBOCON?
             </h3>
-            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-black dark:text-white leading-tight">
-              ABU-Robocon is an <span class="text-orange-500">International Robot Contest</span>
-            </h4>
-            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-10">
+            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight">
+  ABU-Robocon is an <span class="text-orange-500">International Robot Contest</span>
+</h4>
+
+            
+            <p class="text-lg md:text-xl text-white max-w-4xl mx-auto mb-10">
               Hosted by the Asia-Pacific Broadcasting Union. DD Robocon is the national competition in India, taking
               place in 3 rounds.
             </p>
@@ -721,10 +1016,10 @@ nav ul {
           <!-- Slide 2: IROCU -->
           <div class="flex-none w-full px-4 snap-center">
             <h3 class="text-lg md:text-xl uppercase text-red-600 font-extrabold tracking-wide mb-3">WHAT IS IROCU?</h3>
-            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-black dark:text-white leading-tight">
+            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight">
               IRoC-U is an <span class="text-orange-500">ISRO Robotics Challenge</span>
             </h4>
-            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-10">
+     <p class="text-lg md:text-xl text-white max-w-4xl mx-auto mb-10">
               A competition organized by ISRO’s U R Rao Satellite Centre (URSC) for the year 2025. It invites students
               and industry participants to design and develop robotic rovers for future planetary missions.
             </p>
@@ -734,14 +1029,11 @@ nav ul {
           <div class="flex-none w-full px-4 snap-center">
             <h3 class="text-lg md:text-xl uppercase text-red-600 font-extrabold tracking-wide mb-3">WHAT IS INTER IIT
               TECH. MEET?</h3>
-            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-black dark:text-white leading-tight">
+            <h4 class="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight">
               Inter IIT Tech Meet is an <span class="text-orange-500">premier pan‑IIT technology competition</span>
             </h4>
-            <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto mb-10">
-              An annual event where teams from all 23 IITs compete to solve real‑world engineering and technological
-              challenges posed by industry leaders and research organizations.
-              The meet fosters innovation, collaboration, and knowledge sharing, and brings together thousands of
-              students to showcase cutting‑edge solutions.
+          <p class="text-lg md:text-xl text-white max-w-4xl mx-auto mb-10">
+             An annual event where teams from all 23 IITs tackle real-world engineering and tech challenges from industry and research leaders, fostering innovation, collaboration, and knowledge sharing.
             </p>
           </div>
         </div>
@@ -769,6 +1061,7 @@ nav ul {
 
 
  <!-- 🔘 View Our Robots Button -->
+   <div class="w-3/4 mx-auto my-12 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
 <div class="flex justify-center my-8 relative z-10">
   <a href="bot.html"
     class="inline-block px-8 py-4 bg-orange-500 hover:bg-orange-600 text-dark text-lg font-semibold rounded-full transition duration-300 shadow-lg">
@@ -780,9 +1073,8 @@ nav ul {
 
 
 
-  <!-- testimonials -->
-
-<section id="testimonials" class="contact-section relative overflow-visible">
+  <section id="testimonials" class="contact-section relative overflow-visible">
+   <div class="w-3/4 mx-auto my-12 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent"></div>
   <!-- Animated shapes background -->
   <div id="testimonial-bg" class="absolute inset-0 z-0"></div>
 
@@ -791,219 +1083,144 @@ nav ul {
 
     <div class="relative max-w-5xl mx-auto overflow-hidden">
       <!-- Track -->
-     <div id="testimonial-track" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory">
-        <!-- Testimonial  -->
-       <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/jaynaksha.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Jaynaksha Vyas</h3>
-              <p class="text-sm italic mb-2">Captain 2024-2025 , Vice-Captain 2023-2024 </p>
-             <p class="text-gray-700 dark:text-gray-300">
-  <span class="testimonial-text">
-    Team Phoenix is a thrilling platform for innovation and hands-on learning, building technical skills and inspiring out-of-the-box thinking to create impactful solutions.
-    More than a team, it’s a collective of passionate individuals who face challenges, adapt, and make the best of every resource. One day, Team Phoenix will be the epicenter of innovation and technology the world will admire.
-  </span>
-  <span class="see-more-btn">See more</span>
-</p>
-
-            </div>
-          </div>
-        </div>
-        <!-- Testimonial  -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/shivank.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Shivank Goyal</h3>
-              <p class="text-sm italic mb-2">Team Member 2024-2025</p>
-              <p class="text-gray-700 dark:text-gray-300">
-                <span class="testimonial-text">Being part of the robotics team has been one of the best
-                experiences of my college life. From late night builds to the thrill of Robocon and IROC, it’s been a
-                journey filled with learning, teamwork, and some serious fun. Grateful to have shared it with my amazing
-                juniors. You guys made it even better. These memories and skills will stick with me for life.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
-        </div>
+      <div id="testimonial-track" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory">
 
         <!-- Testimonial 1 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/archit.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Archit Anand</h3>
-              <p class="text-sm italic mb-2">Alumni and Team Captain 2021-2022</p>
-              <p class="text-gray-700 dark:text-gray-300">
-                <span class="testimonial-text">
-                Traversing the peaks and valleys of this glorious journey, we went through it all together. From its
-                dormancy during challenging times to its emergence fully rejuvenated, our team kept the lore of the
-                phoenix alive!</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/jaynaksha.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Jaynaksha Vyas</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Vice-Captain 2023-2024 , Captain 2024-2025</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Team Phoenix is a thrilling platform for innovation and hands-on learning, building technical skills and inspiring out of the box thinking to create impactful solutions. More than a team, it’s a collective of passionate individuals who face challenges, adapt, and make the best of every resource. One day, Team Phoenix will be the epicenter of innovation and technology the world will admire.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
 
         <!-- Testimonial 2 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/akshat.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Akshat Jain</h3>
-              <p class="text-sm italic mb-2">Alumni and Team Captain 2020-2021</p>
-              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">We can draw a lot of motivation and inspiration from our team
-                because just like the Pheonix, they have come out more stronger and ambitious than before.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/shivank.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Shivank Goyal</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Team Member 2024-2025</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Being part of the robotics team has been one of the best experiences of my college life. From late night builds to the thrill of Robocon and IROC, it’s been a journey filled with learning, teamwork, and some serious fun. Grateful to have shared it with my amazing juniors. You guys made it even better. These memories and skills will stick with me for life.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
 
         <!-- Testimonial 3 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/pratham.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Pratham Chaudhary</h3>
-              <p class="text-sm italic mb-2">Team Captain 2022-2023</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text"> Being part of Team Phoenix has truly been the most amazing
-                memories of my college journey so far. It has been an incredible experience where I had the privilege of
-                learning and collaborating with passionate individuals who share the same 'hunger' to tinker.
-                Witnessing the team uphold the legacy and elevate it to new heights is truly gratifying.
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/archit.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Archit Anand</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Alumni and Team Captain 2021-2022</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Traversing the peaks and valleys of this glorious journey, we went through it all together. From its dormancy during challenging times to its emergence fully rejuvenated, our team kept the lore of the phoenix alive!</span>
+            <span class="see-more-btn">See more</span>
+          </p>
+        </div>
 
-                This journey taught me a precious lesson:
-                "Failure is never truly an option if the yardstick of your success is the knowledge you gain."</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
-        </div>
         <!-- Testimonial 4 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/piyush.1.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Piyush Tewari</h3>
-              <p class="text-sm italic mb-2">Vice-Captain 2023-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">Success is an easy path if interest is your driver.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/akshat.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Akshat Jain</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Alumni and Team Captain 2020-2021</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">We can draw a lot of motivation and inspiration from our team because just like the Pheonix, they have come out more stronger and ambitious than before.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 5 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/Dewansh.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Devansh Choudhary</h3>
-              <p class="text-sm italic mb-2">Alumni and Vice-Captain 2021-2022</p>
-              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">Being a part of Robocon club has been an exhilarating
-                adventure, filled with unforgettable moments of collaboration, learning, and growth. From building
-                robots to competing on grand stages, we've embraced challenges and celebrated victories together. This
-                club is more than just a team; it's a family united by the love for robotics. I'm proud to call myself a
-                Phoenix, soaring higher with every endeavor.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/pratham.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Pratham Chaudhary</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Team Captain 2022-2023</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Being part of Team Phoenix has truly been the most amazing memories of my college journey so far. It has been an incredible experience where I had the privilege of learning and collaborating with passionate individuals who share the same 'hunger' to tinker. Witnessing the team uphold the legacy and elevate it to new heights is truly gratifying. This journey taught me a precious lesson: "Failure is never truly an option if the yardstick of your success is the knowledge you gain."</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 6 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/panav.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Panav Arpit Raaj</h3>
-              <p class="text-sm italic mb-2">Team Captain 2023-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"> <span class="testimonial-text">This team thrives on competition, distinct from clubs driven
-                by interest or hobbies. ABU Robocon boasts fierce competition where deadlines could equate to
-                elimination. Striving for excellence is essential, as we must surpass the efforts of numerous competing
-                teams across Asia.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/piyush.1.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Piyush Tewari</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Vice-Captain 2023-2024</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Success is an easy path if interest is your driver.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 7 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/rohit-gupta.jpeg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Rohit Gupta</h3>
-              <p class="text-sm italic mb-2">Alumni and Team Captain 2017-2018</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">
-                CTO and Co-Founder of RangeAero, an aviation-logistics based startup operating from Bangalore.
-              </span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/Dewansh.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Devansh Choudhary</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Alumni and Vice-Captain 2021-2022</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Being a part of Robocon club has been an exhilarating adventure, filled with unforgettable moments of collaboration, learning, and growth. From building robots to competing on grand stages, we've embraced challenges and celebrated victories together. This club is more than just a team; it's a family united by the love for robotics. I'm proud to call myself a Phoenix, soaring higher with every endeavor.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 8 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/dhawal.png" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Dhawal Gupta</h3>
-              <p class="text-sm italic mb-2">Technical Secretary, Gymkhana; Founding member and Vice-Captain Robocon;
-                Founder and Co-ordinator Tinkering Lab; IITP CSE 2015-2019</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">The initial absence of a Robocon team at IIT Patna began as a
-                source of frustration but quickly turned into an unexpected opportunity to start something truly
-                special. Participating in Robocon was not just about fulfilling my passion for working on robotics and
-                tackling intriguing problems; it was the first time I had the chance to collaborate closely with friends
-                across all five departments. This endeavor was incredibly fulfilling, fostering lasting friendships,
-                innovative ideas, and meaningful collaboration. I am proud and delighted to have seen the team expand
-                from 18 to over 50 students. I wish them the best of luck for the future. This experience is one I
-                cherish deeply, as it contributed significantly to my personal and professional growth.</span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/panav.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Panav Arpit Raaj</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Team Captain 2023-2024</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">This team thrives on competition, distinct from clubs driven by interest or hobbies. ABU Robocon boasts fierce competition where deadlines could equate to elimination. Striving for excellence is essential, as we must surpass the efforts of numerous competing teams across Asia.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 9 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/nikhil.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Nikhil Singh</h3>
-              <p class="text-sm italic mb-2">Team Member 2022-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text"> The competition not only challenged my technical skills but
-                also fostered teamwork, creativity, and problem-solving. Building and programming a robot from scratch
-                was both rewarding and educational. </span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/rohit-gupta.jpeg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Rohit Gupta</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Alumni and Team Captain 2017-2018</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">CTO and Co-Founder of RangeAero, an aviation-logistics based startup operating from Bangalore.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
         <!-- Testimonial 10 -->
-        <div
-          class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70">
-          <div class="flex gap-4">
-            <img src="img/rishav.jpg" class="w-24 h-24 rounded-full shadow-lg" alt="Profile">
-            <div>
-              <h3 class="text-xl font-bold">Rishav Mitra</h3>
-              <p class="text-sm italic mb-2">Team Member 2022-2024</p>
-              <p class="text-gray-700 dark:text-gray-300"><span class="testimonial-text">Joining Team Phoenix, the RoboCon team of IIT Patna, offers
-                endless opportunities and serves as a perfect platform for showcasing existing skills and developing new
-                ones. Personally, I credit more than half of my current Techstack to my time with Robocon - IIT Patna!
-                Undoubtedly, it's the most vibrant association of brilliant minds on our campus. </span>
-                <span class="see-more-btn">See more</span>
-</p>
-            </div>
-          </div>
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/dhawal.png" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Dhawal Gupta</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Technical Secretary, Gymkhana; Founding member and Vice-Captain Robocon; Founder and Co-ordinator Tinkering Lab; IITP CSE 2015-2019</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">The initial absence of a Robocon team at IIT Patna began as a source of frustration but quickly turned into an unexpected opportunity to start something truly special. Participating in Robocon was not just about fulfilling my passion for working on robotics and tackling intriguing problems; it was the first time I had the chance to collaborate closely with friends across all five departments. This endeavor was incredibly fulfilling, fostering lasting friendships, innovative ideas, and meaningful collaboration. I am proud and delighted to have seen the team expand from 18 to over 50 students. I wish them the best of luck for the future. This experience is one I cherish deeply, as it contributed significantly to my personal and professional growth.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
         </div>
+
+        <!-- Testimonial 11 -->
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/nikhil.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Nikhil Singh</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Team Member 2022-2024</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">The competition not only challenged my technical skills but also fostered teamwork, creativity, and problem-solving. Building and programming a robot from scratch was both rewarding and educational.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
+        </div>
+
+        <!-- Testimonial 12 -->
+        <div class="testimonial-card flex-none w-3/4 mx-2 p-6 snap-center bg-white dark:bg-gray-800 rounded-xl shadow-lg transform scale-90 opacity-70 text-center">
+          <img src="img/rishav.jpg" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-4" alt="Profile">
+          <h3 class="text-xl font-bold">Rishav Mitra</h3>
+          <p class="text-sm italic mb-4 text-gray-400">Team Member 2022-2024</p>
+          <p class="text-gray-700 dark:text-gray-300">
+            <span class="testimonial-text">Joining Team Phoenix, the RoboCon team of IIT Patna, offers endless opportunities and serves as a perfect platform for showcasing existing skills and developing new ones. Personally, I credit more than half of my current Techstack to my time with Robocon - IIT Patna! Undoubtedly, it's the most vibrant association of brilliant minds on our campus.</span>
+            <span class="see-more-btn">See more</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
         <!-- Add more testimonials here -->
       </div>
@@ -1092,11 +1309,11 @@ nav ul {
     <div>
       <h3 class="text-orange-500 font-semibold text-lg mb-2">Quick Links</h3>
       <ul class="space-y-1 text-sm text-gray-300">
-        <li><a href="index.html" class="hover:text-orange-400">🏠 Home</a></li>
-        <li><a href="team.html" class="hover:text-orange-400">👥 Team</a></li>
-        <li><a href="gallery.html" class="hover:text-orange-400">📸 Gallery</a></li>
-        <li><a href="resource.html" class="hover:text-orange-400">📂 Resources</a></li>
-        <li><a href="contact.html" class="hover:text-orange-400">📞 Contact</a></li>
+        <li><a href="index.html" class="hover:text-orange-400"> Home</a></li>
+        <li><a href="team.html" class="hover:text-orange-400"> Team</a></li>
+        <li><a href="gallery.html" class="hover:text-orange-400">Gallery</a></li>
+        <li><a href="resource.html" class="hover:text-orange-400">Resources</a></li>
+        <li><a href="contact.html" class="hover:text-orange-400"> Contact</a></li>
       </ul>
     </div>
 
@@ -1135,7 +1352,7 @@ nav ul {
 
   <!-- 🔚 Bottom Note -->
   <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-4">
-    &copy; 2025 Team Phoenix – IIT Patna. Built with ⚙️, 🔥, and ☕ by passionate engineers.
+    &copy; 2025 Team Phoenix – IIT Patna.
   </div>
 
  
@@ -1621,6 +1838,51 @@ document.querySelectorAll('.see-more-btn').forEach(btn => {
     btn.textContent = text.classList.contains('expanded') ? 'See less' : 'See more';
   });
 });
+// ✅ Flip-card animation trigger (scroll reveal)
+const flipCards = document.querySelectorAll('.flip-card');
+
+const flipObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      // stagger animation by index
+      setTimeout(() => {
+        entry.target.classList.add('animate');
+      }, index * 200);
+
+      observer.unobserve(entry.target); // run once per card
+    }
+  });
+}, { threshold: 0.2 }); // trigger when 20% visible
+
+flipCards.forEach(card => flipObserver.observe(card));
+
+
+// ✅ Flip cards on tap for mobile (with auto-close others + tap outside)
+flipCards.forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) {
+      e.stopPropagation(); // prevent triggering document click
+
+      // Close any other flipped cards
+      flipCards.forEach(c => {
+        if (c !== card) {
+          c.classList.remove('flipped');
+        }
+      });
+
+      // Toggle the clicked one
+      card.classList.toggle('flipped');
+    }
+  });
+});
+
+// ✅ Close all cards when tapping outside
+document.addEventListener('click', () => {
+  if (window.innerWidth <= 768) {
+    flipCards.forEach(card => card.classList.remove('flipped'));
+  }
+});
+
 </script>
 
 </body>
