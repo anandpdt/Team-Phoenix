@@ -7,6 +7,7 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <!-- Tailwind (for utility classes) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -166,54 +167,113 @@ nav a.active::after {
       gap: 1rem;
     }
 
-    .team-card {
-      flex: 0 0 auto;
-      width: 220px;
-      padding: 16px;
-      background: #111;
-      border-radius: 16px;
-      text-align: center;
-      scroll-snap-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .team-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 3px solid #f97316;
-    }
-
-    .team-card h3 {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    .team-card p {
-      font-size: 0.85rem;
-      color: #ccc;
-    }
-
-    .team-card:hover {
-      transform: rotateY(10deg) scale(1.05);
-      box-shadow: 0 10px 20px rgba(249, 115, 22, 0.5);
-    }
-    @media (max-width: 768px) {
-  nav ul li a {
-    font-size: 1.2rem;
-  }
+  /* Flip card container */
+.team-card {
+  width: 220px;
+  height: 320px;
+  perspective: 1000px; /* Enable 3D flip */
 }
-@media (max-width: 768px) {
-  .grid {
-    justify-items: center;
-  }
-  .team-card {
-    width: 90%; /* Adjust width to your liking */
-    max-width: 300px; /* Prevent it from being too wide */
-  }
+
+.team-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
 }
+
+.team-card:hover .team-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front and Back */
+.team-front, .team-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  border: 2px solid #f97316;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Front side (photo + name) */
+.team-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.team-front h3 {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  padding: 8px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+/* Back side (info + socials) */
+.team-back {
+  transform: rotateY(180deg);
+  padding: 16px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto; /* ✅ allow clicking */
+  z-index: 2;
+}
+
+.team-front {
+  pointer-events: auto; /* clickable front side if needed */
+}
+
+.team-back h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.team-back p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.social-links a {
+  color: #f97316;
+  font-size: 1.5rem;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-links a:hover {
+  transform: scale(1.2);
+  color: #ffae42;
+}
+
+
 
   </style>
 </head>
@@ -241,7 +301,7 @@ nav a.active::after {
   <!-- Menu -->
   <ul id="menu" class="fixed top-0 right-[-100%] h-full w-[80%] bg-black flex flex-col items-start pt-6 gap-6 pl-6 transition-all duration-300 z-50 md:static md:flex-row md:gap-6 md:w-auto md:h-auto md:pt-0 md:pl-0 md:right-0">
     <!-- Close Button -->
-    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400">&times;</button>
+    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400 md:hidden">&times;</button>
     <li><a href="index.html" class="text-white font-semibold hover:text-orange-400">Home</a></li>
     <li><a href="team.html" class="text-white font-semibold hover:text-orange-400 active">Team</a></li>
     <li><a href="gallery.html" class="text-white font-semibold hover:text-orange-400">Gallery</a></li>
@@ -282,94 +342,285 @@ nav a.active::after {
     <h2 class="text-3xl text-center orbitron mb-10 highlight">- Meet Our Team -</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto justify-items-center">
 
+<div class="team-card">
+  <div class="team-inner">
+    <!-- Front -->
+    <div class="team-front">
+      <img src="img/jaynaksha.jpg" alt="Jaynaksha" />
+      <h3>Jaynaksha</h3>
+    </div>
 
-
-      <!-- Example team cards (add more as needed) -->
-        <div class="team-card">
-        <img src="img/jaynaksha.jpg" alt="Jaynaksha" />
-        <h3>Jaynaksha</h3>
-        <p>Team Captain</p>
+    <!-- Back -->
+    <div class="team-back">
+      <h3>Jaynaksha</h3>
+      <p>Team Captain</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/jayinaksha-vyas-974051283/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
       </div>
-      <div class="team-card">
+    </div>
+  </div>
+</div>
+
+
+  <!-- Shivank -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/shivank.jpg" alt="Shivank" />
         <h3>Shivank Goyal</h3>
-        <p>Core Member</p>
       </div>
-      <div class="team-card">
-        <img src="img/ayush2.jpg" alt="ayush" />
+      <div class="team-back">
+        <h3>Shivank Goyal</h3>
+        <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/shivankgoyal23/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ayush -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
+        <img src="img/ayush2.jpg" alt="Ayush" />
+        <h3>Ayush</h3>
+      </div>
+      <div class="team-back">
         <h3>Ayush</h3>
         <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/ayush" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
-      <div class="team-card">
+    </div>
+  </div>
+
+  <!-- Vidhan -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/vidhan.jpg" alt="Vidhan" />
         <h3>Vidhan Bansal</h3>
-        <p>Core Member</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Vidhan Bansal</h3>
+        <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/vidhan" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anand -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/me.jpg" alt="Anand" />
         <h3>Anand</h3>
-        <p>Mechanical Lead</p>
       </div>
-      
-     
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Anand</h3>
+        <p>Mechanical Lead</p>
+        <div class="social-links">
+          <a href="www.linkedin.com/in/anand-pdt" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Satyam -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/satyam.jpg" alt="Satyam" />
         <h3>Satyam</h3>
-        <p>Register Level Programmer</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Satyam</h3>
+        <p>Register Level Programmer</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/satyam-singh-595bb6211?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aditya -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/aditya.jpg" alt="Aditya" />
         <h3>Aditya</h3>
-        <p>PID Expert</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Aditya</h3>
+        <p>PID Expert</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/aditya-raj-768137272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kanishk -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/kanishk.jpg" alt="Kanishk" />
         <h3>Kanishk</h3>
+      </div>
+      <div class="team-back">
+        <h3>Kanishk</h3>
         <p>Core Member</p>
-      <!-- Add more cards as needed -->
+        <div class="social-links">
+          <a href="https://linkedin.com/in/kanishk" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
     </div>
-    <div class="team-card">
+  </div>
+
+  <!-- Divya -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/divya.jpg" alt="Divya" />
         <h3>Divya</h3>
-        <p>Software</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Divya</h3>
+        <p>Software</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/divya" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aryan -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/aryan.jpg" alt="Aryan" />
         <h3>Aryan</h3>
-        <p>CAD</p>
-        
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Aryan</h3>
+        <p>CAD</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/aryan" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ayush Maurya -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/ayush.jpg" alt="Ayush Maurya" />
         <h3>Ayush Maurya</h3>
-        <p>Core Member</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Ayush Maurya</h3>
+        <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/ayush-maurya-5a8308339?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manish -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/manish.jpg" alt="Manish" />
         <h3>Manish</h3>
-        <p>SLAM Expert</p>
-        
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Manish</h3>
+        <p>SLAM Expert</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/manish" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liza -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/liza.jpg" alt="Liza" />
         <h3>Liza</h3>
-        <p>Core Member</p>
       </div>
-      <div class="team-card">
-        <img src="img/Rudranshu.jpg" alt="Rudranshun" />
+      <div class="team-back">
+        <h3>Liza</h3>
+        <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/liza" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rudranshu -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
+        <img src="img/Rudranshu.jpg" alt="Rudranshu" />
+        <h3>Rudranshu</h3>
+      </div>
+      <div class="team-back">
         <h3>Rudranshu</h3>
         <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/rudranshu" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
-      <div class="team-card">
+    </div>
+  </div>
+
+  <!-- Bignesh -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/Bignesh.jpg" alt="Bignesh" />
         <h3>Bignesh</h3>
-        <p>Core Member</p>
       </div>
-      <div class="team-card">
+      <div class="team-back">
+        <h3>Bignesh</h3>
+        <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/bignesh" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anany -->
+  <div class="team-card">
+    <div class="team-inner">
+      <div class="team-front">
         <img src="img/ananya.jpg" alt="Anany" />
         <h3>Anany</h3>
+      </div>
+      <div class="team-back">
+        <h3>Anany</h3>
         <p>Core Member</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/anany" target="_blank"><i class="fab fa-linkedin"></i></a>
         </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
   </section>
 
  <!-- 🌟 FOOTER -->
@@ -389,11 +640,11 @@ nav a.active::after {
     <div>
       <h3 class="text-orange-500 font-semibold text-lg mb-2">Quick Links</h3>
       <ul class="space-y-1 text-sm text-gray-300">
-        <li><a href="index.html" class="hover:text-orange-400">🏠 Home</a></li>
-        <li><a href="team.html" class="hover:text-orange-400">👥 Team</a></li>
-        <li><a href="gallery.html" class="hover:text-orange-400">📸 Gallery</a></li>
-        <li><a href="resource.html" class="hover:text-orange-400">📂 Resources</a></li>
-        <li><a href="contact.html" class="hover:text-orange-400">📞 Contact</a></li>
+        <li><a href="index.html" class="hover:text-orange-400"> Home</a></li>
+        <li><a href="team.html" class="hover:text-orange-400"> Team</a></li>
+        <li><a href="gallery.html" class="hover:text-orange-400"> Gallery</a></li>
+        <li><a href="resource.html" class="hover:text-orange-400">Resources</a></li>
+        <li><a href="contact.html" class="hover:text-orange-400"> Contact</a></li>
       </ul>
     </div>
 
@@ -421,7 +672,7 @@ nav a.active::after {
     <a href="https://linkedin.com/company/teamphoenixiitp" target="_blank" title="LinkedIn" class="hover:scale-110 transition-transform">
       <img src="https://img.icons8.com/fluency/30/linkedin.png" alt="LinkedIn" />
     </a>
-    <a href="mailto:teamphoenix@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
+    <a href="mailto:robocon@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
       <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
     </a>
   </div>
@@ -432,7 +683,7 @@ nav a.active::after {
 
   <!-- 🔚 Bottom Note -->
   <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-4">
-    &copy; 2025 Team Phoenix – IIT Patna. Built with ⚙️, 🔥, and ☕ by passionate engineers.
+    &copy; 2025 Team Phoenix – IIT Patna.
   </div>
 
   <!-- FontAwesome CDN -->
