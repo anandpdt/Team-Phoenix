@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us | Team Phoenix</title>
-    <link rel="icon" type="image/png" href="img/11111.png">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;500;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
@@ -24,7 +23,7 @@
 
   <style>
     /* Page basics */
-      html, body {
+    html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -32,6 +31,7 @@ img {
   max-width: 100%;
   height: auto;
 }
+
     body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -138,7 +138,6 @@ img {
 <body>
 
   <!-- NAVBAR -->
-  <!-- NAVBAR -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-black flex items-center justify-between px-4 py-2">
   <!-- Logo -->
   <div class="flex items-center gap-2">
@@ -159,7 +158,9 @@ img {
   <!-- Menu -->
   <ul id="menu" class="fixed top-0 right-[-100%] h-full w-[80%] bg-black flex flex-col items-start pt-6 gap-6 pl-6 transition-all duration-300 z-50 md:static md:flex-row md:gap-6 md:w-auto md:h-auto md:pt-0 md:pl-0 md:right-0">
     <!-- Close Button -->
-    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400">&times;</button>
+   
+    <button id="close-menu" class="text-white text-2xl absolute top-4 right-4 hover:text-orange-400 md:hidden">&times;</button>
+
     <li><a href="index.html" class="text-white font-semibold hover:text-orange-400">Home</a></li>
     <li><a href="team.html" class="text-white font-semibold hover:text-orange-400 ">Team</a></li>
     <li><a href="gallery.html" class="text-white font-semibold hover:text-orange-400">Gallery</a></li>
@@ -170,6 +171,8 @@ img {
 
 <!-- Overlay -->
 <div id="menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+
+
  <!-- HERO -->
 <section id="home" style="position:relative; height:50vh; display:flex; align-items:center; justify-content:center; padding-top:64px; overflow:hidden;">
   <div class="black-orange-corners"></div>
@@ -180,7 +183,7 @@ img {
       Contact Us
     </h1>
     <p id="hero-subheading" class="poppins" style="font-size:1.2rem; color:#c7c7c7; max-width:650px; margin:0 auto;">
-      We’d love to hear from you — drop us a message and we’ll get back as soon as possible.
+      We’d love to hear from you - drop us a message and we’ll get back as soon as possible.
     </p>
   </div>
 </section>
@@ -199,7 +202,7 @@ img {
         <div class="contact-info" aria-labelledby="reach-heading">
           <h3 id="reach-heading">Reach Us At</h3>
           <p><strong>Address:</strong><br>IIT Patna, Bihta Campus, Bihar 801106</p>
-          <p><strong>Email:</strong><br><a href="mailto:contact@teamphoenixiitp.in">teamphoenix.iitp.ac.in</a></p>
+          <p><strong>Email:</strong><br><a href="mailto:robocon@iitp.ac.in">robocon@iitp.ac.in</a></p>
       
 <div class="flex justify-center md:justify-start mt-4 space-x-5 text-xl">
     <a href="https://instagram.com/teamphoenix.iitp" target="_blank" title="Instagram" class="hover:scale-110 transition-transform">
@@ -212,7 +215,7 @@ img {
       <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
     </a>
   </div>
-          <div class="lottie-icons" aria-hidden="true">
+         <div class="lottie-icons" aria-hidden="true">
             <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_iwmd6pyr.json" style="width:56px;height:56px;" background="transparent" speed="1" loop autoplay></lottie-player>
             <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_dgjK9s.json" style="width:56px;height:56px;" background="transparent" speed="1" loop autoplay></lottie-player>
           </div>
@@ -220,40 +223,95 @@ img {
           <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3421.9098386906803!2d84.850329!3d25.537156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDMyJzEzLjgiTiA4NMKwNTEnMDEuMiJF!5e1!3m2!1sen!2sin!4v1754081578974!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade." title="Team Phoenix map" loading="lazy"></iframe>
         </div>
 
-       <!-- Contact Form -->
-<div class="contact-form" aria-labelledby="form-heading">
-  <h3 id="form-heading" style="color:#ff6d1a; margin-bottom:10px;">Send Us a Message</h3>
+        <!-- Contact Form -->
+        <div class="contact-form" aria-labelledby="form-heading">
+          <h3 id="form-heading" style="color:#ff6d1a; margin-bottom:10px;">Send Us a Message</h3>
+         <!-- Google Form Embed -->
+<iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSd4b71q_Gd4U_T7Mz-9DmvZ0kx4YRpaqcRcbI-hJMbRFtFkBQ/viewform?embedded=true" 
+    width="100%" 
+    height="901" 
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0"
+    style="border-radius: 12px; background-color: #151515;">
+    Loading…
+</iframe>
 
-  <!-- 👇 Action now points to contact.php -->
-  <form action="contact.php" method="POST" autocomplete="off">
-    
-    <label class="sr-only">Name</label>
-    <input type="text" name="name" placeholder="Your Name" required>
-
-    <label class="sr-only">Email</label>
-    <input type="email" name="email" placeholder="Your Email" required>
-
-    <label class="sr-only">Subject</label>
-    <select name="subject" aria-label="Subject">
-      <option>Join Us</option>
-      <option>Collaboration</option>
-      <option>Media Inquiry</option>
-      <option>Other</option>
-    </select>
-
-    <label class="sr-only">Message</label>
-    <textarea name="message" placeholder="Your Message..." required rows="6"></textarea>
-
-    <button type="submit">Send Message</button>
-  </form>
-</div>
-
+        </div>
+      </div><!-- /.columns -->
 
     </div><!-- /.container -->
   </section>
 
   <!-- Footer (optional) could go here -->
+  <!-- 🌟 FOOTER -->
+<footer class="bg-black text-white px-6 pt-10 pb-6 relative border-t border-orange-500 shadow-inner z-50">
+  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-center md:text-left">
 
+    <!-- 👑 Logo + About -->
+    <div>
+      <div class="flex items-center justify-center md:justify-start mb-2">
+        <img src="image1-removebg-preview.png" alt="Phoenix Logo" class="h-10 w-10 mr-2">
+        <span class="orbitron text-lg font-bold">Team Phoenix<span class="text-orange-500">.</span></span>
+      </div>
+      <p class="text-sm text-gray-400">Official Robotics Team of IIT Patna.</p>
+    </div>
+
+    <!-- 📂 Quick Links -->
+    <div>
+      <h3 class="text-orange-500 font-semibold text-lg mb-2">Quick Links</h3>
+      <ul class="space-y-1 text-sm text-gray-300">
+        <li><a href="index.html" class="hover:text-orange-400"> Home</a></li>
+        <li><a href="team.html" class="hover:text-orange-400"> Team</a></li>
+        <li><a href="gallery.html" class="hover:text-orange-400"> Gallery</a></li>
+        <li><a href="resource.html" class="hover:text-orange-400"> Resources</a></li>
+        <li><a href="contact.html" class="hover:text-orange-400"> Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- 📬 Contact & Social -->
+   <!-- 📬 Contact & Social (Updated with Logos & Links) -->
+<div>
+  <h3 class="text-orange-500 font-semibold text-lg mb-2">Contact</h3>
+  
+  <div class="space-y-2 text-sm text-gray-300">
+    <p class="flex items-center justify-center md:justify-start gap-2">
+      <i class="fas fa-envelope text-yellow-400 text-lg"></i>
+     
+    </p>
+    
+    <p class="flex items-center justify-center md:justify-start gap-2">
+      <i class="fas fa-map-marker-alt text-green-400 text-lg"></i>
+      <span>IIT Patna, India</span>
+    </p>
+  </div>
+
+  <div class="flex justify-center md:justify-start mt-4 space-x-5 text-xl">
+    <a href="https://instagram.com/teamphoenix.iitp" target="_blank" title="Instagram" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/instagram-new.png" alt="Instagram" />
+    </a>
+    <a href="https://linkedin.com/company/teamphoenixiitp" target="_blank" title="LinkedIn" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/linkedin.png" alt="LinkedIn" />
+    </a>
+    <a href="mailto:robocon@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
+      <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
+    </a>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- 🔚 Bottom Note -->
+  <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-4">
+    &copy; 2025 Team Phoenix – IIT Patna.
+  </div>
+ 
+
+  <!-- FontAwesome CDN -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</footer>
   <!-- Scripts -->
   <script>
     // Init AOS for header boxes (we intentionally left form / info without AOS so they show immediately)
@@ -286,74 +344,8 @@ img {
       "retina_detect": true
     });
   </script>
-   <!-- 🌟 FOOTER -->
-<footer class="bg-black text-white px-6 pt-10 pb-6 relative border-t border-orange-500 shadow-inner z-50">
-  <div class="max-w-6xl mx-auto grid gap-8 md:grid-cols-3 text-center md:text-left">
-
-    <!-- 👑 Logo + About -->
-    <div>
-      <div class="flex items-center justify-center md:justify-start mb-2">
-        <img src="image1-removebg-preview.png" alt="Phoenix Logo" class="h-10 w-10 mr-2">
-        <span class="orbitron text-lg font-bold">Team Phoenix<span class="text-orange-500">.</span></span>
-      </div>
-      <p class="text-sm text-gray-400">Official Robotics Team of IIT Patna.</p>
-    </div>
-
-    <!-- 📂 Quick Links -->
-    <div>
-      <h3 class="text-orange-500 font-semibold text-lg mb-2">Quick Links</h3>
-      <ul class="space-y-1 text-sm text-gray-300">
-        <li><a href="index.html" class="hover:text-orange-400">🏠 Home</a></li>
-        <li><a href="team.html" class="hover:text-orange-400">👥 Team</a></li>
-        <li><a href="gallery.html" class="hover:text-orange-400">📸 Gallery</a></li>
-        <li><a href="resource.html" class="hover:text-orange-400">📂 Resources</a></li>
-        <li><a href="contact.html" class="hover:text-orange-400">📞 Contact</a></li>
-      </ul>
-    </div>
-
-    <!-- 📬 Contact & Social -->
-   <!-- 📬 Contact & Social (Updated with Logos & Links) -->
-<div>
-  <h3 class="text-orange-500 font-semibold text-lg mb-2">Contact</h3>
-  
-  <div class="space-y-2 text-sm text-gray-300">
-    <p class="flex items-center justify-center md:justify-start gap-2">
-      <i class="fas fa-envelope text-yellow-400 text-lg"></i>
-     
-    </p>
-    
-    <p class="flex items-center justify-center md:justify-start gap-2">
-      <i class="fas fa-map-marker-alt text-green-400 text-lg"></i>
-      <span>IIT Patna, India</span>
-    </p>
-  </div>
-
-  <div class="flex justify-center md:justify-start mt-4 space-x-5 text-xl">
-    <a href="https://instagram.com/teamphoenix.iitp" target="_blank" title="Instagram" class="hover:scale-110 transition-transform">
-      <img src="https://img.icons8.com/fluency/30/instagram-new.png" alt="Instagram" />
-    </a>
-    <a href="https://linkedin.com/company/teamphoenixiitp" target="_blank" title="LinkedIn" class="hover:scale-110 transition-transform">
-      <img src="https://img.icons8.com/fluency/30/linkedin.png" alt="LinkedIn" />
-    </a>
-    <a href="mailto:teamphoenix@iitp.ac.in" title="Email" class="hover:scale-110 transition-transform">
-      <img src="https://img.icons8.com/fluency/30/new-post.png" alt="Email" />
-    </a>
-  </div>
-</div>
-
-
-  </div>
-
-  <!-- 🔚 Bottom Note -->
-  <div class="text-center text-xs text-gray-500 mt-8 border-t border-gray-700 pt-4">
-    &copy; 2025 Team Phoenix – IIT Patna. Built with ⚙️, 🔥, and ☕ by passionate engineers.
-  </div>
  
-
-  <!-- FontAwesome CDN -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</footer>
-  <script>
+<script>
 const burger = document.getElementById("burger");
 const menu = document.getElementById("menu");
 const overlay = document.getElementById("menu-overlay");
